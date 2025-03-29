@@ -24,11 +24,11 @@ namespace BackEnd.Services.Implementations
             };
         }
 
-        private Empleado Convertir(EmpleadoDTO empleado)
+        private Empleado Convertir(EmpleadoDTO empleado, bool isNew = false)
         {
             return new Empleado
             {
-                EmpleadoId = empleado.EmpleadoId,
+                EmpleadoId = isNew ? 0 : empleado.EmpleadoId,
                 Nombre = empleado.Nombre,
                 Salario = empleado.Salario
             };
@@ -36,7 +36,7 @@ namespace BackEnd.Services.Implementations
 
         public EmpleadoDTO AddEmpleado(EmpleadoDTO empleado)
         {
-            _unidadDeTrabajo.EmpleadoDAL.Add(Convertir(empleado));
+            _unidadDeTrabajo.EmpleadoDAL.Add(Convertir(empleado, true));
             _unidadDeTrabajo.Complete();
             return empleado;
         }
